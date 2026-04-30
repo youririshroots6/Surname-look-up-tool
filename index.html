@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Irish Surname Lookup</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #F8F4ED;
+    --parchment: #EDE8DC;
+    --ink: #1C1710;
+    --ink-mid: #4A3F2F;
+    --ink-light: #8C7E6A;
+    --gold: #A87C2A;
+    --gold-light: #C9A24E;
+    --green: #2D5016;
+    --green-light: #3D6B20;
+    --border: #C8B99A;
+    --border-light: #DDD0BA;
+  }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'EB Garamond', serif;
+    min-height: 100vh;
+    padding: 0;
+  }
+
+  .page {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 4rem;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+
+  header::after {
+    content: '❧';
+    position: absolute;
+    bottom: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--cream);
+    padding: 0 12px;
+    color: var(--gold);
+    font-size: 20px;
+  }
+
+  .title {
+    font-family: 'Cinzel', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: 0.06em;
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+
+  .subtitle {
+    font-size: 16px;
+    color: var(--ink-mid);
+    font-style: italic;
+  }
+
+  .search-section {
+    margin-bottom: 2rem;
+  }
+
+  .search-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 1rem;
+  }
+
+  input[type="text"] {
+    flex: 1;
+    font-family: 'EB Garamond', serif;
+    font-size: 18px;
+    padding: 12px 16px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: #fff;
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.15s;
+  }
+
+  input[type="text"]:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(168,124,42,0.12);
+  }
+
+  input[type="text"]::placeholder {
+    color: var(--ink-light);
+    font-style: italic;
+  }
+
+  .lookup-btn {
+    font-family: 'Cinzel', serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    padding: 12px 24px;
+    border: 1px solid var(--gold);
+    border-radius: 4px;
+    background: var(--green);
+    color: #fff;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.15s, transform 0.1s;
+  }
+
+  .lookup-btn:hover { background: var(--green-light); }
+  .lookup-btn:active { transform: scale(0.98); }
+  .lookup-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+  .examples {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .examples-label {
+    font-size: 13px;
+    color: var(--ink-light);
+    font-style: italic;
+  }
+
+  .chip {
+    font-family: 'EB Garamond', serif;
+    font-size: 14px;
+    padding: 4px 14px;
+    border: 1px solid var(--border);
+    border-radius: 99px;
+    background: transparent;
+    color: var(--ink-mid);
+    cursor: pointer;
+    transition: background 0.12s, border-color 0.12s;
+  }
+
+  .chip:hover {
+    background: var(--parchment);
+    border-color: var(--border);
+  }
+
+  #result-area { min-height: 40px; }
+
+  .loading {
+    text-align: center;
+    padding: 3rem 0;
+    color: var(--ink-light);
+    font-style: italic;
+    font-size: 17px;
+  }
+
+  .error {
+    text-align: center;
+    padding: 2rem;
+    color: #8B2020;
+    font-style: italic;
+    font-size: 16px;
+    border: 1px solid #D4A0A0;
+    border-radius: 4px;
+    background: #FDF5F5;
+  }
+
+  .result {
+    animation: rise 0.35s ease;
+  }
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .result-header {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .result-surname {
+    font-family: 'Cinzel', serif;
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: 0.04em;
+    margin-bottom: 4px;
+  }
+
+  .result-irish {
+    font-size: 17px;
+    color: var(--ink-mid);
+    font-style: italic;
+    margin-bottom: 14px;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .tag {
+    font-size: 13px;
+    padding: 4px 12px;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    background: var(--parchment);
+    color: var(--ink-mid);
+  }
+
+  .tag strong {
+    color: var(--ink);
+    font-weight: 500;
+    margin-right: 4px;
+  }
+
+  .section {
+    margin-bottom: 1.5rem;
+  }
+
+  .section-label {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .section-text {
+    font-size: 17px;
+    line-height: 1.75;
+    color: var(--ink);
+  }
+
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border-light);
+    margin: 1.5rem 0;
+  }
+
+  .hook-box {
+    background: var(--green);
+    border-radius: 4px;
+    padding: 1.25rem 1.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .hook-box .section-label {
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 10px;
+  }
+
+  .hook-text {
+    font-size: 17px;
+    line-height: 1.65;
+    color: #fff;
+    font-style: italic;
+  }
+
+  footer {
+    text-align: center;
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-light);
+    font-size: 13px;
+    color: var(--ink-light);
+    font-style: italic;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <h1 class="title">Irish Surname Lookup</h1>
+    <p class="subtitle">Discover the origin, county, and clan history of any Irish surname</p>
+  </header>
+
+  <div class="search-section">
+    <div class="search-row">
+      <input type="text" id="surname-input" placeholder="Enter a surname — e.g. Murphy, Walsh, O'Neill..." />
+      <button class="lookup-btn" id="lookup-btn" onclick="doLookup()">Lookup</button>
+    </div>
+    <div class="examples">
+      <span class="examples-label">Try:</span>
+      <button class="chip" onclick="quickLookup('Murphy')">Murphy</button>
+      <button class="chip" onclick="quickLookup('O\'Brien')">O'Brien</button>
+      <button class="chip" onclick="quickLookup('Walsh')">Walsh</button>
+      <button class="chip" onclick="quickLookup('McCarthy')">McCarthy</button>
+      <button class="chip" onclick="quickLookup('Gallagher')">Gallagher</button>
+      <button class="chip" onclick="quickLookup('Byrne')">Byrne</button>
+    </div>
+  </div>
+
+  <div id="result-area"></div>
+
+  <footer>Irish Surnames, Clans &amp; Legends &nbsp;·&nbsp; Every name tells a story</footer>
+
+</div>
+
+<script>
+const input = document.getElementById('surname-input');
+const btn = document.getElementById('lookup-btn');
+const resultArea = document.getElementById('result-area');
+
+input.addEventListener('keydown', e => { if (e.key === 'Enter') doLookup(); });
+
+function quickLookup(name) {
+  input.value = name;
+  doLookup();
+}
+
+async function doLookup() {
+  const surname = input.value.trim();
+  if (!surname) return;
+
+  btn.disabled = true;
+  btn.textContent = 'Searching...';
+  resultArea.innerHTML = '<div class="loading">Searching the clan records…</div>';
+
+  const prompt = `You are an expert on Irish surnames, clan history, and genealogy. The user has entered: "${surname}"
+
+Return ONLY a raw JSON object. No markdown, no backticks, no explanation before or after. Use exactly this structure:
+{
+  "surname": "standardised English spelling",
+  "irish": "Irish language form e.g. Ó Briain",
+  "meaning": "literal meaning in one sentence",
+  "county": "primary county or counties of origin",
+  "province": "province name",
+  "clan_type": "e.g. Gaelic Irish, Norman, Viking, Anglo-Norman",
+  "origin_story": "2-3 sentences on clan history, who they were, what they were known for, any famous bearers",
+  "diaspora_note": "one sentence on where this surname concentrated in the diaspora",
+  "tiktok_hook": "one or two punchy sentences as a TikTok script opener — surprising or provocative, no hashtags"
+}
+
+If the name is not Irish, still return valid JSON and explain in origin_story.`;
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+
+    const data = await response.json();
+    const raw = data.content.map(b => b.text || '').join('');
+    const clean = raw.replace(/```json|```/g, '').trim();
+    const r = JSON.parse(clean);
+    renderResult(r);
+  } catch(err) {
+    resultArea.innerHTML = '<div class="error">Something went wrong — please try again.</div>';
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Lookup';
+  }
+}
+
+function renderResult(r) {
+  resultArea.innerHTML = `
+    <div class="result">
+      <div class="result-header">
+        <div class="result-surname">${r.surname}</div>
+        ${r.irish ? `<div class="result-irish">${r.irish}</div>` : ''}
+        <div class="tags">
+          ${r.county ? `<span class="tag"><strong>County</strong>${r.county}</span>` : ''}
+          ${r.province ? `<span class="tag"><strong>Province</strong>${r.province}</span>` : ''}
+          ${r.clan_type ? `<span class="tag"><strong>Origin</strong>${r.clan_type}</span>` : ''}
+        </div>
+      </div>
+
+      <div class="section">
+        <span class="section-label">Meaning</span>
+        <p class="section-text">${r.meaning}</p>
+      </div>
+
+      <hr class="divider" />
+
+      <div class="section">
+        <span class="section-label">Clan history</span>
+        <p class="section-text">${r.origin_story}</p>
+      </div>
+
+      ${r.diaspora_note ? `
+      <div class="section">
+        <span class="section-label">Diaspora</span>
+        <p class="section-text">${r.diaspora_note}</p>
+      </div>` : ''}
+
+      <div class="hook-box">
+        <span class="section-label">TikTok hook</span>
+        <p class="hook-text">${r.tiktok_hook}</p>
+      </div>
+    </div>
+  `;
+}
+</script>
+</body>
+</html>
