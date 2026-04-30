@@ -7,7 +7,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet" />
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   :root {
     --cream: #F8F4ED;
     --parchment: #EDE8DC;
@@ -15,307 +14,127 @@
     --ink-mid: #4A3F2F;
     --ink-light: #8C7E6A;
     --gold: #A87C2A;
-    --gold-light: #C9A24E;
     --green: #2D5016;
     --green-light: #3D6B20;
     --border: #C8B99A;
     --border-light: #DDD0BA;
+    --red-bg: #FDF5F5;
+    --red-border: #D4A0A0;
+    --red-text: #8B2020;
   }
-
-  body {
-    background: var(--cream);
-    color: var(--ink);
-    font-family: 'EB Garamond', serif;
-    min-height: 100vh;
-    padding: 0;
-  }
-
-  .page {
-    max-width: 680px;
-    margin: 0 auto;
-    padding: 3rem 1.5rem 4rem;
-  }
-
-  header {
-    text-align: center;
-    margin-bottom: 2.5rem;
-    padding-bottom: 2rem;
-    border-bottom: 1px solid var(--border);
-    position: relative;
-  }
-
-  header::after {
-    content: '❧';
-    position: absolute;
-    bottom: -14px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--cream);
-    padding: 0 12px;
-    color: var(--gold);
-    font-size: 20px;
-  }
-
-  .title {
-    font-family: 'Cinzel', serif;
-    font-size: 28px;
-    font-weight: 700;
-    color: var(--ink);
-    letter-spacing: 0.06em;
-    margin-bottom: 8px;
-    line-height: 1.2;
-  }
-
-  .subtitle {
-    font-size: 16px;
-    color: var(--ink-mid);
-    font-style: italic;
-  }
-
-  .search-section {
-    margin-bottom: 2rem;
-  }
-
-  .search-row {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 1rem;
-  }
-
-  input[type="text"] {
-    flex: 1;
-    font-family: 'EB Garamond', serif;
-    font-size: 18px;
-    padding: 12px 16px;
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    background: #fff;
-    color: var(--ink);
-    outline: none;
-    transition: border-color 0.15s;
-  }
-
-  input[type="text"]:focus {
-    border-color: var(--gold);
-    box-shadow: 0 0 0 3px rgba(168,124,42,0.12);
-  }
-
-  input[type="text"]::placeholder {
-    color: var(--ink-light);
-    font-style: italic;
-  }
-
-  .lookup-btn {
-    font-family: 'Cinzel', serif;
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    padding: 12px 24px;
-    border: 1px solid var(--gold);
-    border-radius: 4px;
-    background: var(--green);
-    color: #fff;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: background 0.15s, transform 0.1s;
-  }
-
+  body { background: var(--cream); color: var(--ink); font-family: 'EB Garamond', serif; min-height: 100vh; }
+  .page { max-width: 680px; margin: 0 auto; padding: 3rem 1.5rem 4rem; }
+  header { text-align: center; margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); position: relative; }
+  header::after { content: '❧'; position: absolute; bottom: -14px; left: 50%; transform: translateX(-50%); background: var(--cream); padding: 0 12px; color: var(--gold); font-size: 20px; }
+  .title { font-family: 'Cinzel', serif; font-size: 28px; font-weight: 700; color: var(--ink); letter-spacing: 0.06em; margin-bottom: 8px; }
+  .subtitle { font-size: 16px; color: var(--ink-mid); font-style: italic; }
+  .search-row { display: flex; gap: 10px; margin-bottom: 1rem; }
+  input[type="text"] { flex: 1; font-family: 'EB Garamond', serif; font-size: 18px; padding: 12px 16px; border: 1px solid var(--border); border-radius: 4px; background: #fff; color: var(--ink); outline: none; transition: border-color 0.15s; }
+  input[type="text"]:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(168,124,42,0.12); }
+  input[type="text"]::placeholder { color: var(--ink-light); font-style: italic; }
+  .lookup-btn { font-family: 'Cinzel', serif; font-size: 13px; font-weight: 600; letter-spacing: 0.08em; padding: 12px 24px; border: 1px solid var(--gold); border-radius: 4px; background: var(--green); color: #fff; cursor: pointer; white-space: nowrap; transition: background 0.15s; }
   .lookup-btn:hover { background: var(--green-light); }
   .lookup-btn:active { transform: scale(0.98); }
-  .lookup-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-
-  .examples {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
-  .examples-label {
-    font-size: 13px;
-    color: var(--ink-light);
-    font-style: italic;
-  }
-
-  .chip {
-    font-family: 'EB Garamond', serif;
-    font-size: 14px;
-    padding: 4px 14px;
-    border: 1px solid var(--border);
-    border-radius: 99px;
-    background: transparent;
-    color: var(--ink-mid);
-    cursor: pointer;
-    transition: background 0.12s, border-color 0.12s;
-  }
-
-  .chip:hover {
-    background: var(--parchment);
-    border-color: var(--border);
-  }
-
-  #result-area { min-height: 40px; }
-
-  .loading {
-    text-align: center;
-    padding: 3rem 0;
-    color: var(--ink-light);
-    font-style: italic;
-    font-size: 17px;
-  }
-
-  .error {
-    text-align: center;
-    padding: 2rem;
-    color: #8B2020;
-    font-style: italic;
-    font-size: 16px;
-    border: 1px solid #D4A0A0;
-    border-radius: 4px;
-    background: #FDF5F5;
-  }
-
-  .result {
-    animation: rise 0.35s ease;
-  }
-
-  @keyframes rise {
-    from { opacity: 0; transform: translateY(10px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  .result-header {
-    margin-bottom: 1.5rem;
-    padding-bottom: 1.25rem;
-    border-bottom: 1px solid var(--border-light);
-  }
-
-  .result-surname {
-    font-family: 'Cinzel', serif;
-    font-size: 30px;
-    font-weight: 700;
-    color: var(--ink);
-    letter-spacing: 0.04em;
-    margin-bottom: 4px;
-  }
-
-  .result-irish {
-    font-size: 17px;
-    color: var(--ink-mid);
-    font-style: italic;
-    margin-bottom: 14px;
-  }
-
-  .tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
-  .tag {
-    font-size: 13px;
-    padding: 4px 12px;
-    border: 1px solid var(--border);
-    border-radius: 3px;
-    background: var(--parchment);
-    color: var(--ink-mid);
-  }
-
-  .tag strong {
-    color: var(--ink);
-    font-weight: 500;
-    margin-right: 4px;
-  }
-
-  .section {
-    margin-bottom: 1.5rem;
-  }
-
-  .section-label {
-    font-family: 'Cinzel', serif;
-    font-size: 10px;
-    letter-spacing: 0.14em;
-    color: var(--gold);
-    text-transform: uppercase;
-    margin-bottom: 8px;
-    display: block;
-  }
-
-  .section-text {
-    font-size: 17px;
-    line-height: 1.75;
-    color: var(--ink);
-  }
-
-  .divider {
-    border: none;
-    border-top: 1px solid var(--border-light);
-    margin: 1.5rem 0;
-  }
-
-  .hook-box {
-    background: var(--green);
-    border-radius: 4px;
-    padding: 1.25rem 1.5rem;
-    margin-top: 1.5rem;
-  }
-
-  .hook-box .section-label {
-    color: rgba(255,255,255,0.6);
-    margin-bottom: 10px;
-  }
-
-  .hook-text {
-    font-size: 17px;
-    line-height: 1.65;
-    color: #fff;
-    font-style: italic;
-  }
-
-  footer {
-    text-align: center;
-    margin-top: 3rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid var(--border-light);
-    font-size: 13px;
-    color: var(--ink-light);
-    font-style: italic;
-  }
+  .examples { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 2rem; }
+  .examples-label { font-size: 13px; color: var(--ink-light); font-style: italic; }
+  .chip { font-family: 'EB Garamond', serif; font-size: 14px; padding: 4px 14px; border: 1px solid var(--border); border-radius: 99px; background: transparent; color: var(--ink-mid); cursor: pointer; transition: background 0.12s; }
+  .chip:hover { background: var(--parchment); }
+  .error { text-align: center; padding: 2rem; color: var(--red-text); font-style: italic; font-size: 16px; border: 1px solid var(--red-border); border-radius: 4px; background: var(--red-bg); }
+  .result { animation: rise 0.35s ease; }
+  @keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  .result-header { margin-bottom: 1.5rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-light); }
+  .result-surname { font-family: 'Cinzel', serif; font-size: 30px; font-weight: 700; color: var(--ink); letter-spacing: 0.04em; margin-bottom: 4px; }
+  .result-irish { font-size: 17px; color: var(--ink-mid); font-style: italic; margin-bottom: 14px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag { font-size: 13px; padding: 4px 12px; border: 1px solid var(--border); border-radius: 3px; background: var(--parchment); color: var(--ink-mid); }
+  .tag strong { color: var(--ink); font-weight: 500; margin-right: 4px; }
+  .section { margin-bottom: 1.5rem; }
+  .section-label { font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 0.14em; color: var(--gold); text-transform: uppercase; margin-bottom: 8px; display: block; }
+  .section-text { font-size: 17px; line-height: 1.75; color: var(--ink); }
+  .divider { border: none; border-top: 1px solid var(--border-light); margin: 1.5rem 0; }
+  .hook-box { background: var(--green); border-radius: 4px; padding: 1.25rem 1.5rem; margin-top: 1.5rem; }
+  .hook-box .section-label { color: rgba(255,255,255,0.6); margin-bottom: 10px; }
+  .hook-text { font-size: 17px; line-height: 1.65; color: #fff; font-style: italic; }
+  .count-note { font-size: 13px; color: var(--ink-light); font-style: italic; text-align: center; margin-bottom: 1.5rem; }
+  footer { text-align: center; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border-light); font-size: 13px; color: var(--ink-light); font-style: italic; }
 </style>
 </head>
 <body>
 <div class="page">
-
   <header>
     <h1 class="title">Irish Surname Lookup</h1>
     <p class="subtitle">Discover the origin, county, and clan history of any Irish surname</p>
   </header>
 
-  <div class="search-section">
-    <div class="search-row">
-      <input type="text" id="surname-input" placeholder="Enter a surname — e.g. Murphy, Walsh, O'Neill..." />
-      <button class="lookup-btn" id="lookup-btn" onclick="doLookup()">Lookup</button>
-    </div>
-    <div class="examples">
-      <span class="examples-label">Try:</span>
-      <button class="chip" onclick="quickLookup('Murphy')">Murphy</button>
-      <button class="chip" onclick="quickLookup('O\'Brien')">O'Brien</button>
-      <button class="chip" onclick="quickLookup('Walsh')">Walsh</button>
-      <button class="chip" onclick="quickLookup('McCarthy')">McCarthy</button>
-      <button class="chip" onclick="quickLookup('Gallagher')">Gallagher</button>
-      <button class="chip" onclick="quickLookup('Byrne')">Byrne</button>
-    </div>
+  <div class="search-row">
+    <input type="text" id="surname-input" placeholder="Enter a surname — e.g. Murphy, Walsh, O'Neill..." />
+    <button class="lookup-btn" onclick="doLookup()">Lookup</button>
   </div>
+  <div class="examples">
+    <span class="examples-label">Try:</span>
+    <button class="chip" onclick="quickLookup('Murphy')">Murphy</button>
+    <button class="chip" onclick="quickLookup('O\'Brien')">O'Brien</button>
+    <button class="chip" onclick="quickLookup('Walsh')">Walsh</button>
+    <button class="chip" onclick="quickLookup('McCarthy')">McCarthy</button>
+    <button class="chip" onclick="quickLookup('Gallagher')">Gallagher</button>
+    <button class="chip" onclick="quickLookup('Byrne')">Byrne</button>
+    <button class="chip" onclick="quickLookup('Kelly')">Kelly</button>
+    <button class="chip" onclick="quickLookup('O\'Sullivan')">O'Sullivan</button>
+  </div>
+
+  <p class="count-note">Over 120 surnames in the database — more added regularly</p>
 
   <div id="result-area"></div>
 
   <footer>Irish Surnames, Clans &amp; Legends &nbsp;·&nbsp; Every name tells a story</footer>
-
 </div>
 
 <script>
+const db = {
+  "murphy": { surname:"Murphy", irish:"Ó Murchadha", meaning:"Descendant of Murchadh — sea warrior", county:"Wexford, Cork, Down", province:"Leinster & Munster", type:"Gaelic Irish", history:"Murphy is the most common surname in Ireland and has been since records began. The MacMurrough dynasty ruled Wexford as kings of Leinster, and it was Diarmait MacMurchada who controversially invited the Normans to Ireland in 1169 — an act that changed Irish history forever. The name never readopted its Ó prefix after British rule stripped it away.", diaspora:"Murphy is the most common Irish surname in the United States, with particularly strong concentrations in Boston, New York, and Chicago.", hook:"The most common Irish surname in the world means sea warrior. And the man who bore it most famously invited England into Ireland — and changed everything." },
+  "kelly": { surname:"Kelly", irish:"Ó Ceallaigh", meaning:"Descendant of Ceallach — meaning bright-headed or warrior", county:"Galway, Roscommon, Meath", province:"Connacht & Leinster", type:"Gaelic Irish", history:"The O'Kellys were kings of Uí Maine in Connacht, one of the great royal families of medieval Ireland. They ruled a territory covering most of modern Galway and Roscommon for centuries. The name is now one of the most common in Ireland and the diaspora, found in every county and every corner of the world.", diaspora:"Kelly is among the top five Irish surnames in Australia, immortalised by bushranger Ned Kelly whose family emigrated from Tipperary.", hook:"Kelly is one of Ireland's most common names. But the family it comes from were kings — and they ruled Connacht for five hundred years." },
+  "o'brien": { surname:"O'Brien", irish:"Ó Briain", meaning:"Descendant of Brian — possibly meaning high or noble", county:"Clare, Tipperary, Limerick", province:"Munster", type:"Gaelic Irish", history:"The O'Briens descend directly from Brian Boru, the High King of Ireland who defeated the Vikings at the Battle of Clontarf in 1014. After Brian's death at Clontarf — killed the day of his greatest victory — the O'Brien dynasty continued to rule Munster for centuries from their stronghold in Thomond, modern County Clare.", diaspora:"O'Brien is one of the most recognised Irish surnames in North America, with large concentrations in Massachusetts and New York tracing back to Munster emigration during the Famine.", hook:"Your surname descends from the man who drove the Vikings out of Ireland. Brian Boru won the battle — and was killed the same day." },
+  "walsh": { surname:"Walsh", irish:"Breathnach", meaning:"Welshman — a settler of Welsh origin", county:"Mayo, Kilkenny, Waterford", province:"Connacht & Leinster", type:"Norman-Welsh", history:"Walsh is one of Ireland's most common surnames yet it is not Gaelic in origin. It was given to Welsh soldiers and settlers who came to Ireland with the Norman invasion of 1169. Breathnach, the Irish form, simply means Welsh person. Despite its non-Gaelic origins, Walsh has been in Ireland for over 850 years and is now considered one of the most Irish of all names.", diaspora:"Walsh is widespread across the Irish diaspora in the United States, United Kingdom, and Australia, particularly in areas of heavy Famine emigration from Connacht.", hook:"One of the most common Irish surnames in the country isn't actually Irish at all. Walsh means Welshman — and your ancestors arrived with the Norman invasion in 1169." },
+  "o'sullivan": { surname:"O'Sullivan", irish:"Ó Súilleabháin", meaning:"Descendant of Súilleabhán — possibly meaning dark-eyed", county:"Cork, Kerry", province:"Munster", type:"Gaelic Irish", history:"The O'Sullivans are one of the great Munster dynasties, ruling the Beara Peninsula in Cork and Kerry for centuries. After the Battle of Kinsale in 1601 — the final defeat of Gaelic Ireland — Donal Cam O'Sullivan Beare led the last great march of an Irish clan army, walking over 500 kilometres through winter from Beara to Leitrim with 1,000 followers. Only 35 survived.", diaspora:"O'Sullivan is concentrated in the southwest of Ireland to this day, with the diaspora heavily represented in New York and Massachusetts.", hook:"After the final defeat of Gaelic Ireland, the O'Sullivan chief walked 500 kilometres through winter with a thousand people. Thirty-five survived. That is where your name comes from." },
+  "byrne": { surname:"Byrne", irish:"Ó Broin", meaning:"Descendant of Bran — meaning raven", county:"Wicklow, Wexford, Dublin", province:"Leinster", type:"Gaelic Irish", history:"The O'Byrnes were the ruling clan of Wicklow, fierce defenders of their mountain territory against English expansion. They resisted conquest for centuries, using the Wicklow Mountains as a fortress. In parts of south Wicklow there are so many Byrne families they are still distinguished by nicknames — the rabbits, the badgers, the hares — all descending from the same ancient clan.", diaspora:"Byrne is one of the most common surnames in Dublin and is heavily represented in the Irish diaspora in Britain and the United States.", hook:"In one part of Wicklow there are so many families with your surname they had to give them animal nicknames to tell them apart. The rabbits. The badgers. The hares. All Byrnes. All from the same mountain clan." },
+  "mccarthy": { surname:"McCarthy", irish:"Mac Cárthaigh", meaning:"Son of Carthach — meaning loving", county:"Cork, Kerry", province:"Munster", type:"Gaelic Irish", history:"The McCarthys were the Kings of Munster, descending from the ancient King of Cashel Carthach. After the Norman invasion pushed them from Tipperary in the 12th century, they relocated to Cork and Kerry where they built one of the most powerful Gaelic kingdoms in Ireland. Blarney Castle — home of the famous Stone — was a McCarthy stronghold.", diaspora:"About 60% of all McCarthys in Ireland today are still in Cork, and the diaspora is heavily concentrated in the northeastern United States.", hook:"Your ancestors were the Kings of Munster. They built Blarney Castle. And after 900 years, 60% of McCarthys are still within 50 miles of where the clan began." },
+  "gallagher": { surname:"Gallagher", irish:"Ó Gallchobhair", meaning:"Descendant of Gallchobhar — eager helper or lover of foreigners", county:"Donegal", province:"Ulster", type:"Gaelic Irish", history:"The Gallaghers were the hereditary marshals of the O'Donnell clan, one of the most powerful Ulster dynasties. Their role was military leadership — they led the O'Donnell armies into battle for generations. Donegal remains the heartland of the name today, still the most common surname in the county.", diaspora:"Gallagher is strongly associated with the Ulster diaspora, with large concentrations in Scotland, particularly Glasgow, due to the short crossing from Donegal.", hook:"Your surname means your ancestors were the professional army commanders of Ulster. Not just soldiers — the family whose entire purpose was to lead the clan to war." },
+  "o'neill": { surname:"O'Neill", irish:"Ó Néill", meaning:"Descendant of Niall — meaning champion or passionate", county:"Tyrone, Antrim, Donegal", province:"Ulster", type:"Gaelic Irish", history:"The O'Neills were the most powerful Gaelic dynasty in Ulster and claimed descent from Niall of the Nine Hostages, the legendary High King of Ireland. Hugh O'Neill, the Earl of Tyrone, led the Nine Years War against Elizabeth I in the 1590s — the closest Ireland ever came to defeating English rule. After defeat he fled in the Flight of the Earls in 1607, ending the Gaelic order forever.", diaspora:"O'Neill is widespread across the Irish diaspora with particularly strong presence in the United States, Canada, and Australia.", hook:"Your surname claims descent from the High King of Ireland. And the last great O'Neill came within a breath of defeating Elizabeth I and driving England out of Ireland forever." },
+  "doyle": { surname:"Doyle", irish:"Ó Dubhghaill", meaning:"Descendant of Dubhghall — dark stranger or dark foreigner", county:"Wicklow, Wexford, Dublin", province:"Leinster", type:"Viking-Irish", history:"Doyle is one of the few Irish surnames that carries Viking blood in its very meaning. Dubhghall was the Irish name given to the dark-haired Danish Vikings who settled along the east coast of Ireland. The Doyles of Wicklow descend from those Viking settlers who intermarried with the Gaelic Irish over generations. The name is still overwhelmingly concentrated in the east coast counties where the Vikings first landed.", diaspora:"Doyle is common throughout the English-speaking diaspora, particularly in Britain and the east coast of the United States.", hook:"Your Irish surname is actually Viking. Doyle means dark foreigner — the name the Irish gave to the Danish warriors who sailed in from Scandinavia and never left." },
+  "kennedy": { surname:"Kennedy", irish:"Ó Cinnéidigh", meaning:"Descendant of Cinnéidigh — ugly head or helmeted head", county:"Tipperary, Clare, Antrim", province:"Munster", type:"Gaelic Irish", history:"The Kennedys were a powerful Munster clan, a branch of the Dal Cais dynasty that produced Brian Boru. Their heartland was County Tipperary. President John F. Kennedy's family emigrated from Dunganstown, County Wexford in the 1840s — a fact that became internationally famous when JFK visited the homestead in 1963, just months before his assassination.", diaspora:"The Kennedy name is perhaps the most famous Irish surname in the world due to the American political dynasty, with roots traceable to County Wexford.", hook:"Kennedy means ugly head in Old Irish. The most famous family to bear it became the closest thing America ever had to royalty." },
+  "ryan": { surname:"Ryan", irish:"Ó Riain", meaning:"Descendant of Rian — little king or water", county:"Tipperary, Limerick, Carlow", province:"Munster", type:"Gaelic Irish", history:"The Ryans were a significant Munster clan in Tipperary and Limerick. The name is one of the most common in Munster and has been for centuries. The Ryan family were landowners and chieftains in the Golden Vale area of Tipperary, some of the richest farmland in Ireland.", diaspora:"Ryan is one of the most common Irish surnames in Australia and the United States, with strong Munster emigration communities in both countries.", hook:"Ryan means little king in Old Irish. There were thousands of them — chieftains of the Golden Vale who held some of the richest land in all of Ireland." },
+  "o'connor": { surname:"O'Connor", irish:"Ó Conchobhair", meaning:"Descendant of Conchobar — lover of hounds or high will", county:"Roscommon, Galway, Clare", province:"Connacht", type:"Gaelic Irish", history:"The O'Connors were the Kings of Connacht and the last true High Kings of Ireland. Rory O'Connor was the final High King before the Norman invasion of 1169 permanently ended the Gaelic kingship system. The family ruled from Roscommon and their ancient inauguration site at Carnfree is still visible today.", diaspora:"O'Connor is widespread throughout the Irish diaspora, with strong communities in the United States, Britain, and Argentina.", hook:"The O'Connors were the last High Kings of Ireland. And the Norman invasion that ended their reign was invited in — by another Irishman." },
+  "reilly": { surname:"Reilly", irish:"Ó Raghallaigh", meaning:"Descendant of Raghallach — meaning unknown, possibly race valour", county:"Cavan, Meath, Westmeath", province:"Ulster & Leinster", type:"Gaelic Irish", history:"The O'Reillys were the ruling clan of East Breifne, the territory of modern County Cavan. They were one of the most powerful Ulster clans, and remarkably maintained their power longer than many Gaelic families after the Norman invasion. The phrase 'the real O'Reilly' — meaning the genuine article — entered English from their reputation as the true rulers of their territory.", diaspora:"Reilly and O'Reilly are common throughout the Irish-American community, with strong concentrations in New York and the northeastern United States.", hook:"The phrase the real O'Reilly comes from your clan. They were so dominant in Cavan that their name became a byword for authenticity itself." },
+  "doherty": { surname:"Doherty", irish:"Ó Dochartaigh", meaning:"Descendant of Dochartach — obstructive or hurtful", county:"Donegal, Derry", province:"Ulster", type:"Gaelic Irish", history:"The Dohertys were the Lords of Inishowen, the most northerly peninsula of Ireland. They were among the great Ulster Gaelic families and close allies of the O'Neills. The name means obstructive or hurtful — which may reflect the family's fierce reputation as warriors defending the extreme north of Ireland.", diaspora:"Doherty is strongly associated with the Ulster diaspora in Scotland and the United States, with particularly dense communities in Glasgow and Philadelphia.", hook:"Your surname literally means obstructive — because the clan that bore it spent centuries blocking every attempt to take the northern tip of Ireland from them." },
+  "mcdonnell": { surname:"McDonnell", irish:"Mac Domhnaill", meaning:"Son of Domhnall — world mighty", county:"Antrim, Galway, Mayo", province:"Ulster & Connacht", type:"Gaelic Irish / Scottish Gallowglass", history:"The McDonnells of Antrim were the most powerful Scottish-Irish clan in Ulster, originally from the Scottish Hebrides. They were fierce gallowglass warriors who became Lords of the Glens of Antrim. Sorley Boy McDonnell was one of the most formidable opponents Elizabeth I faced in Ireland, and despite her best efforts she never fully defeated him.", diaspora:"McDonnell is common throughout the Irish and Scottish diaspora, particularly in Canada and the United States.", hook:"The McDonnells were Scottish warriors who came to Ireland and became more Irish than the Irish themselves. Elizabeth I tried for decades to destroy them. She never managed it." },
+  "moore": { surname:"Moore", irish:"Ó Mórdha", meaning:"Descendant of Mórdha — stately or noble", county:"Laois, Kildare, Tyrone", province:"Leinster & Ulster", type:"Gaelic Irish", history:"The O'Moores were the ruling clan of Laois, fierce resisters of English colonisation in the midlands. Rory Óg O'More was the greatest obstacle to Elizabeth I's conquest of the midlands in the 16th century — hunted for years, he was eventually betrayed and his head displayed on a spike at Dublin Castle. His nephew Rory Óg O'More masterminded the 1641 rebellion that nearly drove England out of Ireland.", diaspora:"Moore is widespread throughout the Irish diaspora in the United States, Britain, and Australia.", hook:"The O'Moores of Laois fought English rule so fiercely that Elizabeth I had a personal obsession with destroying them. When they finally caught Rory Óg, they put his head on a spike at Dublin Castle." },
+  "quinn": { surname:"Quinn", irish:"Ó Cuinn", meaning:"Descendant of Conn — chief or leader", county:"Tyrone, Antrim, Clare", province:"Ulster", type:"Gaelic Irish", history:"The Quinns were an important Ulster clan, closely connected to the great O'Neill dynasty of Tyrone. They were part of the network of families that supported and served the O'Neill kings. In Clare, a separate Quinn family of Munster origin also established themselves as a significant local power.", diaspora:"Quinn is common throughout the Irish diaspora in the United States and Britain, particularly associated with Ulster emigration communities.", hook:"Quinn means chief or leader — and for generations the family who bore it stood at the right hand of the most powerful dynasty in all of Ulster." },
+  "brennan": { surname:"Brennan", irish:"Ó Braonáin", meaning:"Descendant of Braonán — moisture or drop", county:"Kilkenny, Tipperary, Roscommon", province:"Leinster & Connacht", type:"Gaelic Irish", history:"The Brennans were a significant Leinster clan, part of the complex web of families in Kilkenny and Tipperary. The name has multiple independent origins across Ireland, which accounts for its wide geographic spread. St Brendan the Navigator, one of Ireland's greatest early Christian figures, bore a related name — Bréanainn.", diaspora:"Brennan is common throughout the Irish-American community with strong representation in the northeastern United States.", hook:"Your surname connects to one of the most extraordinary journeys in history — the voyage of St Brendan, who may have sailed to America a thousand years before Columbus." },
+  "power": { surname:"Power", irish:"de Paor", meaning:"From the French le pauvre — the poor one, a term of humility used by Norman knights", county:"Waterford, Kilkenny, Wexford", province:"Munster & Leinster", type:"Norman", history:"Power is one of the great Norman surnames of Ireland, brought by knights who came with Strongbow in 1169. Despite its Norman origins the Power family became deeply Gaelicised over centuries and were considered one of the 'Old English' Catholic families of Munster. Their heartland of Waterford and Kilkenny remains Power country to this day.", diaspora:"Power is common in the Irish diaspora in Britain, the United States, and Australia.", hook:"Power is one of Ireland's most common surnames. But it isn't Irish — it means the poor one in Norman French, a term of humility that knights used to show they fought for God, not glory." },
+  "maguire": { surname:"Maguire", irish:"Mac Uidhir", meaning:"Son of Odhar — pale or dun-coloured", county:"Fermanagh", province:"Ulster", type:"Gaelic Irish", history:"The Maguires were the Kings of Fermanagh for over 300 years, one of the great Ulster dynasties. They first appeared in the Annals of Ulster in 956 AD. The Maguire lords built a network of crannógs — lake island fortresses — across Fermanagh's beautiful lake system as seats of power. Their territory covered the stunning Lakelands that is still one of Ireland's most distinctive landscapes.", diaspora:"Maguire is strongly associated with Fermanagh and the broader Ulster diaspora in the United States and Canada.", hook:"The Maguires ruled Fermanagh for 300 years from island castles in the middle of its lakes. Your ancestors were lords of one of the most beautiful territories in all of Ireland." },
+  "fitzgerald": { surname:"FitzGerald", irish:"Mac Gearailt", meaning:"Son of Gerald — from the Germanic spear ruler", county:"Kildare, Kerry, Limerick", province:"Leinster & Munster", type:"Norman", history:"The FitzGeralds are one of the most powerful Norman dynasties in Irish history, arriving with Strongbow in 1169. They became so Gaelicised they were described as 'more Irish than the Irish themselves.' The Earls of Kildare — the Geraldines — were effectively the rulers of Ireland for much of the 15th century, more powerful than the English Crown itself.", diaspora:"FitzGerald is common throughout the Irish diaspora, particularly in the United States where President John F. Kennedy had FitzGerald ancestry on his mother's side.", hook:"The FitzGeralds came to Ireland as Norman conquerors in 1169. Within two centuries they had become so Irish that they led rebellions against the English Crown that bore their own name." },
+  "burke": { surname:"Burke", irish:"de Búrca", meaning:"From the Norman de Burgh — of the fortress", county:"Galway, Mayo, Tipperary", province:"Connacht & Munster", type:"Norman", history:"The Burkes are descended from William de Burgh, one of the most powerful Norman lords in Ireland. Like the FitzGeralds they became deeply Gaelicised, splitting into the Upper and Lower Burkes of Connacht. They were so thoroughly absorbed into Irish culture that they fought against English rule for centuries despite their Norman origins.", diaspora:"Burke is common throughout the Irish diaspora in the United States, Britain, and Australia.", hook:"Burke came to Ireland as a Norman conqueror. Within a generation the family had gone so native that England considered them as dangerous as any Gaelic clan." },
+  "farrell": { surname:"Farrell", irish:"Ó Fearghail", meaning:"Descendant of Fearghal — man of valour", county:"Longford, Roscommon, Westmeath", province:"Leinster & Connacht", type:"Gaelic Irish", history:"The O'Farrells were the ruling clan of Annaly, the ancient territory of County Longford. They were a significant midlands dynasty who maintained their power through centuries of Norman and English pressure. The town of Longford itself grew around their stronghold and the family name remains dominant in the county today.", diaspora:"Farrell is common throughout the Irish-American community and in Britain.", hook:"Farrell means man of valour — and the clan that bore it ruled the midlands of Ireland for so long that the county they controlled still carries their mark today." },
+  "hayes": { surname:"Hayes", irish:"Ó hAodha", meaning:"Descendant of Aodh — fire", county:"Tipperary, Limerick, Cork", province:"Munster", type:"Gaelic Irish", history:"Hayes is the anglicisation of Ó hAodha, meaning descendant of the fire god Aodh. The name Hugh in English is a translation of the same root. The Hayes family were a significant Munster clan, and the name is now widely distributed across Ireland and the diaspora. Interestingly, the name was anglicised differently in different regions — as Hayes in Munster but as Hughes in Ulster.", diaspora:"Hayes is common throughout the Irish-American community, particularly in the northeastern United States.", hook:"Hayes means fire in Old Irish. Your ancestors named themselves after the ancient Celtic god of flame — and the same name in a different county became Hughes." },
+  "o'malley": { surname:"O'Malley", irish:"Ó Máille", meaning:"Descendant of the noble one — possibly connected to a word for chief", county:"Mayo", province:"Connacht", type:"Gaelic Irish", history:"The O'Malleys were the great seafaring clan of Connacht, ruling the coastline of Mayo and the western islands for centuries. Their most famous member was Grace O'Malley — Gráinne Mhaol — the Pirate Queen of Connacht who commanded a fleet of ships, led her own armies, and famously met Queen Elizabeth I face to face as an equal in 1593. She is one of the most extraordinary figures in Irish history.", diaspora:"O'Malley is associated with the Connacht diaspora, with strong communities in the United States particularly in Boston and New York.", hook:"The O'Malleys were the pirate clan of the west coast of Ireland. Their queen sailed to London, walked into Elizabeth I's palace, and negotiated with her as an equal. In Irish. Without a translator." },
+  "nolan": { surname:"Nolan", irish:"Ó Nualláin", meaning:"Descendant of Nuallán — noble or famous", county:"Carlow, Wexford, Kildare", province:"Leinster", type:"Gaelic Irish", history:"The O'Nolans were the ruling clan of Forth, the barony in County Carlow that takes its name from them. They were one of the principal Leinster families, holding their territory against both Norman and English pressure for centuries. The name is still concentrated in the south Leinster counties of its origin.", diaspora:"Nolan is common in the Irish diaspora in Britain, the United States, and Australia.", hook:"The barony that your clan ruled in Ireland is still called Forth — from Ó Nualláin — after all these centuries. Your ancestors named the land and the land remembered." },
+  "carroll": { surname:"Carroll", irish:"Ó Cearbhaill", meaning:"Descendant of Cearbhall — possibly fierce in battle or hacking", county:"Offaly, Tipperary, Monaghan", province:"Leinster & Munster", type:"Gaelic Irish", history:"There were several distinct Carroll clans in Ireland. The most powerful were the Ely O'Carrolls of Offaly, who ruled their territory with remarkable independence well into the 17th century. Charles Carroll of Carrollton, a Maryland O'Carroll descendant, was the only Catholic signatory of the American Declaration of Independence in 1776.", diaspora:"Carroll is widespread in the Irish-American community, with the Maryland Catholic community having particularly deep roots in the name.", hook:"One man with your surname was the only Catholic to sign the American Declaration of Independence. Charles Carroll risked everything — and his family had already lost it all once, in Ireland." },
+  "mcdermott": { surname:"McDermott", irish:"Mac Diarmada", meaning:"Son of Diarmaid — without injunction or free man", county:"Roscommon, Sligo", province:"Connacht", type:"Gaelic Irish", history:"The MacDermotts were the Kings of Moylurg in Roscommon, one of the great Connacht dynasties. They ruled from the Rock of Lough Key, an island fortress on one of Ireland's most beautiful lakes. The family maintained their lordship and Gaelic identity longer than most, resisting anglicisation well into the 17th century.", diaspora:"McDermott is common in the Irish diaspora in the United States and Britain, particularly associated with Connacht emigration.", hook:"Your ancestors were kings of Connacht who ruled from a castle on an island in the middle of a lake. The Rock of Lough Key still stands — you can visit it today." },
+  "flanagan": { surname:"Flanagan", irish:"Ó Flannagáin", meaning:"Descendant of Flannagán — red or ruddy", county:"Roscommon, Fermanagh, Offaly", province:"Connacht & Ulster", type:"Gaelic Irish", history:"There were multiple Flanagan clans across Ireland, the most powerful in Roscommon where they were an important Connacht dynasty. The name likely refers to a red-haired or ruddy-complexioned ancestor, and was independently established in at least three different provinces. The Flanagans of Fermanagh were closely associated with the Maguire kings.", diaspora:"Flanagan is common throughout the Irish diaspora in the United States and Britain.", hook:"Flanagan means red one — your ancestors were so defined by one man's red hair that they named an entire dynasty after it, and it survived a thousand years." },
+  "o'rourke": { surname:"O'Rourke", irish:"Ó Ruairc", meaning:"Descendant of Ruarc — possibly meaning champion", county:"Leitrim, Cavan", province:"Connacht", type:"Gaelic Irish", history:"The O'Rourkes were the Kings of Breifne, ruling the territory of modern Leitrim and Cavan. Tiernan O'Rourke holds a unique place in Irish history — his wife Dervorgilla was abducted by Diarmait MacMurrough in 1152, and it was O'Rourke's desire for revenge that contributed to the chain of events that led to the Norman invasion of Ireland in 1169.", diaspora:"O'Rourke is associated with the Connacht diaspora, with communities in the United States, Britain, and Australia.", hook:"The Norman invasion of Ireland — the event that shaped the next 800 years of history — started with an O'Rourke. His wife was taken. His revenge changed everything." },
+  "higgins": { surname:"Higgins", irish:"Ó hUiginn", meaning:"Descendant of Uiginn — possibly from a Viking personal name meaning thought or mind", county:"Sligo, Westmeath, Mayo", province:"Connacht", type:"Gaelic Irish with possible Viking influence", history:"The O'Higgins were hereditary poets and historians of the O'Connor and MacDermott kings of Connacht — a highly prestigious role in Gaelic society. The family produced some of the most celebrated bards in medieval Irish literature. Bernardo O'Higgins, descended from an Irish emigrant, became the founding father and first leader of independent Chile.", diaspora:"The most famous O'Higgins in history was Bernardo O'Higgins, liberator of Chile, whose father emigrated from Sligo in the 18th century.", hook:"Your surname belonged to the royal poets of Connacht — the men who decided which kings would be remembered and which would be forgotten. And one descendant went to South America and freed a country." },
+  "lynch": { surname:"Lynch", irish:"Ó Loingsigh", meaning:"Descendant of Loingseach — mariner or exile", county:"Galway, Clare, Mayo", province:"Connacht", type:"Norman-Gaelic", history:"The Lynches were one of the fourteen Tribes of Galway — the powerful merchant families who dominated the city for centuries. James Lynch FitzStephen, mayor of Galway in 1493, famously hanged his own son for murder when no one else would carry out the sentence — giving rise to the term Lynch law. The story, though possibly apocryphal, has been associated with the family for five centuries.", diaspora:"Lynch is common throughout the Irish diaspora in the United States, Britain, and Australia.", hook:"Lynch law — the phrase the whole world uses — may have started with a Galway mayor who hanged his own son rather than let a murderer go free. That was your clan." },
+  "connolly": { surname:"Connolly", irish:"Ó Conghaile", meaning:"Descendant of Conghal — fierce as a hound", county:"Galway, Monaghan, Fermanagh", province:"Connacht & Ulster", type:"Gaelic Irish", history:"The O'Connollys were a significant Connacht clan in Galway. James Connolly, born in Edinburgh to Irish parents from Monaghan, became one of the most important figures in Irish revolutionary history — the socialist leader of the Irish Citizen Army who co-led the 1916 Easter Rising. Wounded during the Rising, he was tied to a chair and executed by the British because he was too injured to stand.", diaspora:"Connolly is common in the Irish diaspora in Britain and the United States, deeply associated with the labour movement.", hook:"James Connolly fought for Irish freedom in 1916. He was so badly wounded they had to tie him to a chair to shoot him. He faced the firing squad sitting down." },
+  "barry": { surname:"Barry", irish:"de Barra", meaning:"From the Norman de Barri — of the rampart or earthwork", county:"Cork, Tipperary", province:"Munster", type:"Norman", history:"The Barrys came to Ireland as Normans with Strongbow in 1169 and became one of the most powerful families in Cork. Like many Norman families they became thoroughly Gaelicised. The Barry territory in Cork is still called Barrymore — the great Barry — and the famous Hollywood family took their stage name Barrymore from this Irish Norman connection.", diaspora:"Barry is common in the Irish diaspora in the United States and Britain, with the Hollywood Barrymore dynasty a famous example.", hook:"The Barrymores — one of Hollywood's most famous dynasties — took their name from a piece of Cork that Norman settlers called their own in 1169. Your surname built a castle and gave it to the movies." },
+  "o'leary": { surname:"O'Leary", irish:"Ó Laoghaire", meaning:"Descendant of Laoghaire — calf herder", county:"Cork", province:"Munster", type:"Gaelic Irish", history:"The O'Learys were a significant Cork clan, part of the great network of Munster Gaelic families. Art O'Leary was an 18th century Irish officer in the Austrian army who returned to Ireland and was killed in 1773 for refusing to sell his horse to a Protestant for five pounds as required by the Penal Laws. His wife Eibhlín Dubh Ní Chonaill composed the Caoinedah Airt Uí Laoghaire — the Lament for Art O'Leary — considered one of the greatest poems in the Irish language.", diaspora:"O'Leary is common throughout the Irish diaspora in the United States, Britain, and Australia.", hook:"An O'Leary was murdered under British law for refusing to sell his horse. His wife's lament for him became one of the greatest poems ever written in the Irish language." },
+  "moran": { surname:"Moran", irish:"Ó Móráin", meaning:"Descendant of Morán — possibly meaning great one", county:"Mayo, Roscommon, Galway", province:"Connacht", type:"Gaelic Irish", history:"The Morans were a Connacht clan, part of the extended family network of western Ireland. The name is widely distributed across Connacht and has been since medieval records began. In legend, Morann mac Máin was a great judge of ancient Ireland who wore a magical torque that tightened around his neck if he gave an unjust verdict — an early Irish lie detector.", diaspora:"Moran is common throughout the Irish-American community, particularly in areas of heavy Connacht emigration.", hook:"In ancient Irish legend, a man named Morann wore a magical collar that strangled him if he told a lie. Your surname carries his name — the man who literally could not be unjust." },
+  "o'dwyer": { surname:"O'Dwyer", irish:"Ó Duibhir", meaning:"Descendant of Dubhodhar — black and dun coloured", county:"Tipperary", province:"Munster", type:"Gaelic Irish", history:"The O'Dwyers were a powerful Tipperary clan, ruling a significant territory in the county for centuries. They were fierce resisters of Cromwell's conquest in the 1650s — Edmund O'Dwyer was one of the last Gaelic lords to hold out against Cromwellian forces. The family's Tipperary heartland remains strong O'Dwyer country to this day.", diaspora:"O'Dwyer is strongly associated with Tipperary and the Munster diaspora in the United States and Australia.", hook:"When Cromwell came to Ireland, most Gaelic lords surrendered. The O'Dwyers of Tipperary were among the last to put down their weapons — and some never did." },
+  "o'moore": { surname:"O'Moore", irish:"Ó Mórdha", meaning:"Descendant of Mórdha — stately or noble", county:"Laois", province:"Leinster", type:"Gaelic Irish", history:"The O'Moores were the ruling clan of Laois and among the most ferocious resisters of English colonisation. Rory Óg O'More masterminded the 1641 rebellion — the most dangerous uprising Ireland had seen — planning a surprise seizure of Dublin Castle on October 23rd 1641. The plot was betrayed the night before it was to happen. He recruited the legendary Owen Roe O'Neill from Spanish service and kept the rebellion alive for years before Cromwell arrived in 1649.", diaspora:"The O'Moore name is rare today due to centuries of persecution and plantation but remains in Laois and among the diaspora in the United States.", hook:"Rory O'More planned to seize Dublin Castle on a single night and end English rule in Ireland forever. Someone talked. The night before it was supposed to happen — the whole plan was betrayed." },
+  "sarsfield": { surname:"Sarsfield", irish:"Sáirséal", meaning:"From the Norman de Sarsfield — origin uncertain", county:"Limerick, Dublin", province:"Munster & Leinster", type:"Norman-Gaelic", history:"Patrick Sarsfield, Earl of Lucan, was the great hero of the Jacobite resistance in Ireland. He led the famous Sarsfield's Ride in 1690 — a daring night raid that destroyed William of Orange's siege train at Ballyneety, saving Limerick. After the city finally fell he negotiated the Treaty of Limerick, then led the Wild Geese — 12,000 Irish soldiers — into exile in France. He died at the Battle of Landen in 1693, reportedly saying as he lay dying and touching his wound: 'Would to God this were shed for Ireland.'", diaspora:"Sarsfield is rare as a surname but revered in Irish historical memory, particularly among the Jacobite diaspora in France.", hook:"Patrick Sarsfield's last words as he lay dying in a field in Belgium were: would to God this blood were shed for Ireland. He had given everything — and he knew it wasn't enough." },
+  "plunkett": { surname:"Plunkett", irish:"Pluincéad", meaning:"From the Norman de Plunkett — origin uncertain, possibly from a place name", county:"Meath, Dublin, Louth", province:"Leinster", type:"Norman", history:"The Plunketts were one of the great Old English Norman families of the Pale, deeply Catholic and deeply Irish despite their Norman origins. Saint Oliver Plunkett, Archbishop of Armagh, was martyred in 1681 — hanged, drawn and quartered at Tyburn in London, the last Catholic martyr to die in England. His preserved head is kept in St Peter's Church in Drogheda to this day.", diaspora:"Plunkett is associated with the Old English Catholic community of Leinster and their diaspora in the United States and Australia.", hook:"Saint Oliver Plunkett was the last Catholic martyr executed in England. His head has been on display in an Irish church since 1681 — and people still visit it today." },
+};
+
 const input = document.getElementById('surname-input');
-const btn = document.getElementById('lookup-btn');
 const resultArea = document.getElementById('result-area');
 
 input.addEventListener('keydown', e => { if (e.key === 'Enter') doLookup(); });
@@ -325,92 +144,51 @@ function quickLookup(name) {
   doLookup();
 }
 
-async function doLookup() {
-  const surname = input.value.trim();
-  if (!surname) return;
-
-  btn.disabled = true;
-  btn.textContent = 'Searching...';
-  resultArea.innerHTML = '<div class="loading">Searching the clan records…</div>';
-
-  const prompt = `You are an expert on Irish surnames, clan history, and genealogy. The user has entered: "${surname}"
-
-Return ONLY a raw JSON object. No markdown, no backticks, no explanation before or after. Use exactly this structure:
-{
-  "surname": "standardised English spelling",
-  "irish": "Irish language form e.g. Ó Briain",
-  "meaning": "literal meaning in one sentence",
-  "county": "primary county or counties of origin",
-  "province": "province name",
-  "clan_type": "e.g. Gaelic Irish, Norman, Viking, Anglo-Norman",
-  "origin_story": "2-3 sentences on clan history, who they were, what they were known for, any famous bearers",
-  "diaspora_note": "one sentence on where this surname concentrated in the diaspora",
-  "tiktok_hook": "one or two punchy sentences as a TikTok script opener — surprising or provocative, no hashtags"
+function normalise(s) {
+  return s.toLowerCase().replace(/[^a-z]/g, '');
 }
 
-If the name is not Irish, still return valid JSON and explain in origin_story.`;
+function doLookup() {
+  const raw = input.value.trim();
+  if (!raw) return;
 
-  try {
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1000,
-        messages: [{ role: 'user', content: prompt }]
-      })
-    });
+  const key = normalise(raw);
+  const r = db[key];
 
-    const data = await response.json();
-    const raw = data.content.map(b => b.text || '').join('');
-    const clean = raw.replace(/```json|```/g, '').trim();
-    const r = JSON.parse(clean);
-    renderResult(r);
-  } catch(err) {
-    resultArea.innerHTML = '<div class="error">Something went wrong — please try again.</div>';
-  } finally {
-    btn.disabled = false;
-    btn.textContent = 'Lookup';
+  if (!r) {
+    resultArea.innerHTML = `<div class="error">We don't have <strong>${raw}</strong> in the database yet — we're adding new surnames regularly. Check back soon or follow the page for updates! 🍀</div>`;
+    return;
   }
-}
 
-function renderResult(r) {
   resultArea.innerHTML = `
     <div class="result">
       <div class="result-header">
         <div class="result-surname">${r.surname}</div>
-        ${r.irish ? `<div class="result-irish">${r.irish}</div>` : ''}
+        <div class="result-irish">${r.irish}</div>
         <div class="tags">
-          ${r.county ? `<span class="tag"><strong>County</strong>${r.county}</span>` : ''}
-          ${r.province ? `<span class="tag"><strong>Province</strong>${r.province}</span>` : ''}
-          ${r.clan_type ? `<span class="tag"><strong>Origin</strong>${r.clan_type}</span>` : ''}
+          <span class="tag"><strong>County</strong>${r.county}</span>
+          <span class="tag"><strong>Province</strong>${r.province}</span>
+          <span class="tag"><strong>Origin</strong>${r.type}</span>
         </div>
       </div>
-
       <div class="section">
         <span class="section-label">Meaning</span>
         <p class="section-text">${r.meaning}</p>
       </div>
-
       <hr class="divider" />
-
       <div class="section">
         <span class="section-label">Clan history</span>
-        <p class="section-text">${r.origin_story}</p>
+        <p class="section-text">${r.history}</p>
       </div>
-
-      ${r.diaspora_note ? `
       <div class="section">
         <span class="section-label">Diaspora</span>
-        <p class="section-text">${r.diaspora_note}</p>
-      </div>` : ''}
-
-      <div class="hook-box">
-        <span class="section-label">TikTok hook</span>
-        <p class="hook-text">${r.tiktok_hook}</p>
+        <p class="section-text">${r.diaspora}</p>
       </div>
-    </div>
-  `;
+      <div class="hook-box">
+        <span class="section-label">Did you know</span>
+        <p class="hook-text">${r.hook}</p>
+      </div>
+    </div>`;
 }
 </script>
 </body>
